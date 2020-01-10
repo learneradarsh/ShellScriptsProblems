@@ -13,18 +13,18 @@ LOSE=0
 
 while [ $GAMBLEAMOUNT -ge 0 ]
 do
-	if (( GAMBLEAMOUNT==0 ))
+	if (( $GAMBLEAMOUNT==0 ))
 	then
 		echo "YOU LOSE": $GAMBLEAMOUNT
 		break
 	fi
 	randNumber=$(( RANDOM%2 ))
 	(( ++TOTALBETS ))
-	if (( randNumber==WIN ))
+	if (( $randNumber==$WIN ))
 	then
 		(( ++GAMBLEAMOUNT ))
 		(( ++TOTALWINATT ))
-	elif (( GAMBLEAMOUNT==WINGOALAMOUNT ))
+	elif (( $GAMBLEAMOUNT==$WINGOALAMOUNT ))
 	then
 		echo "WON MAX AMOUNT:" $GAMBLEAMOUNT
 		break

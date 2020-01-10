@@ -4,7 +4,7 @@
 readonly HEADS=1
 readonly TAILS=0
 function isHeads(){
-	if (( randNumber == HEADS ))
+	if (( $randNumber==$HEADS ))
 	then
 		echo "Heads"
 	else
