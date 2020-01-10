@@ -1,18 +1,26 @@
 #!/bin/bash -x
 
 read -p "Enter number:" number
-for (( i=2 ; $i <= $(( $number / 2 )) ; i++ ))
-do
-	if (( number%i == 0 ))
+
+function isPrime(){
+
+	if (( $number<=1 ))
 	then
-		ISPRIME=0
-		break
+		return 0
 	fi
-done
-if(( ISPRIME != 0 ))
+	for (( i=2 ; $i<$number; $i++ ))
+	do
+		if (( $number%i==0 ))
+		then
+			return 0
+		fi
+	done
+	return 1
+}
+isPrime $number
+if (( $?==1 ))
 then
 	echo "PRIME"
 else
 	echo "NON-PRIME"
 fi
-
