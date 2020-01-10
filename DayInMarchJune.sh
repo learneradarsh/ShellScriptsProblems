@@ -1,16 +1,16 @@
 #!/bin/bash
 
 function IsDayExistsInMarchOrJune(){
-	if (( $2 == $march )) && (( $1 >= 20 )) || (( $1 <= 31 ))
+	if (( $2 == $march )) && (( $1 >= 20 )) && (( $1 <= 31 ))
 	then
 		echo "true"
-	elif (( $2 == $april )) && (( $1 >= 1 )) || (( $1 <= 30 ))
+	elif (( $2 == $april )) && (( $1 >= 1 )) && (( $1 <= 30 ))
 	then
 		echo "true"
-	elif (( $2 == $may )) && (( $1 >= 1 )) || (( $1 <= 31 ))
+	elif (( $2 == $may )) && (( $1 >= 1 )) && (( $1 <= 31 ))
 	then
 		echo "true"
-	elif (( $2 ==  $june )) && (( $1 >=1 )) || (( $1 <= 30 ))
+	elif (( $2 ==  $june )) && (( $1 >=1 )) && (( $1 <= 30 ))
 	then
 		echo "true"
 	else
