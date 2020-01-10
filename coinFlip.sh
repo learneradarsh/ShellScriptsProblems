@@ -9,6 +9,7 @@ function isHeads(){
 		echo "Heads"
 	else
 		echo "Tails"
+	fi
 }
 randNumber=$((RANDOM%2))
-isHeads
+isHeads $randNumber
