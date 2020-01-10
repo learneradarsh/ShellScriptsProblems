@@ -21,5 +21,4 @@ march=3
 april=4
 may=5
 june=6
-#read -p  "Enter Day(number) and Month(number):" day month
 IsDayExistsInMarchOrJune $1 $2
