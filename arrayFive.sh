@@ -22,6 +22,6 @@ do
 	(( i++ ))
 done
 
-echo "Palindrome Numbers are:" ${rptArray[@]}
+echo "Repeated Numbers are:" ${rptArray[@]}
 
 
