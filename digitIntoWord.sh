@@ -1,31 +1,31 @@
 #!/bin/bash
 
 function convertDigitIntoWord(){
-	if (( digit == 0 ))
+	if (( $digit == 0 ))
 	then
 		echo "Zero"
-	elif (( digit == 1 ))
+	elif (( $digit == 1 ))
 	then
 		echo "One"
-	elif (( digit == 2 ))
+	elif (( $digit == 2 ))
 	then
 		echo "Two"
-	elif (( digit == 3 ))
+	elif (( $digit == 3 ))
 	then
 		echo "Three"
-	elif (( digit == 4 ))
+	elif (( $digit == 4 ))
 	then
 		echo "Four"
-	elif (( digit == 5 ))
+	elif (( $digit == 5 ))
 	then
 		echo "Five"
-	elif (( digit == 6))
+	elif (( $digit == 6))
 	then
 		echo "Six"
-	elif (( digit == 7 ))
+	elif (( $digit == 7 ))
 	then
 		echo "Seven"
-	elif (( digit == 8 ))
+	elif (( $digit == 8 ))
 	then
 		echo "Eight"
 	elif (( digit == 9 ))
