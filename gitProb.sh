@@ -1,21 +1,35 @@
 #!/bin/bash -x
 
 declare -a res
+size=0 #size of dictionary res
+counter=0
 
-#usecase one
+#USECASE ONE
 read -p "Enter three numbers:" a b c
 
-#usecase two
+#USECASE TWO
 res[0]=$(( a+b*c ))
 
-#usecase three
+#USECASE THREE
 res[1]=$(( a*b+c ))
 
-#usecase four
+#USECASE FOUR
 res[2]=$(( c+a/b ))
 
-#usecase five
+#USECASE FIVE
 res[3]=$(( a%b+c ))
 
-#usecase six
-echo "Results are:"${res[@]}
+#USECASE SIX
+echo "Results are:" ${res[@]}
+
+#USECASE SEVEN
+size=$(( ${#res[@]} ))
+
+#trasnfered value from res to sec
+while(( counter<size ))
+do
+	sec[counter++]=$(( ${res[counter]} ))
+done
+
+#printed value of sec array
+echo ${sec[@]}
