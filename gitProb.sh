@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 declare -a res
+declare -a sec
 size=0 #size of dictionary res
 counter=0
 
@@ -33,3 +34,14 @@ done
 
 #printed value of sec array
 echo ${sec[@]}
+
+#USECASE EIGHT
+
+#function for desc sort
+function descSort(){
+	local arr=("$@")
+	arr=($(echo ${arr[*]}| tr " " "\n" | sort -n -r))
+	echo "Desc sorted array:" ${arr[@]}
+}
+
+descSort ${sec[@]}
