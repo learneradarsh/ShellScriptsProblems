@@ -11,3 +11,6 @@ resTwo=$(( a*b+c ))
 
 #usecase four
 resThree=$(( c+a/b ))
+
+#usecase five
+resFour=$(( a%b+c ))
