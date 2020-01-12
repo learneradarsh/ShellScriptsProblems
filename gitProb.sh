@@ -8,3 +8,6 @@ resOne=$(( a+b*c ))
 
 #usecase three
 resTwo=$(( a*b+c ))
+
+#usecase four
+resThree=$(( c+a/b ))
