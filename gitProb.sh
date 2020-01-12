@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 declare -a res
 declare -a sec
@@ -45,3 +45,14 @@ function descSort(){
 }
 
 descSort ${sec[@]}
+
+#USECASE NINE
+
+#function for asc sort
+function ascSort(){
+	local arr=("$@")
+	arr=($(echo ${arr[*]}| tr " " "\n" | sort -n))
+	echo "Asc sorted array:" ${arr[@]}
+}
+
+ascSort ${sec[@]}
