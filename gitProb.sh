@@ -1,16 +1,21 @@
 #!/bin/bash -x
 
+declare -a res
+
 #usecase one
 read -p "Enter three numbers:" a b c
 
 #usecase two
-resOne=$(( a+b*c ))
+res[0]=$(( a+b*c ))
 
 #usecase three
-resTwo=$(( a*b+c ))
+res[1]=$(( a*b+c ))
 
 #usecase four
-resThree=$(( c+a/b ))
+res[2]=$(( c+a/b ))
 
 #usecase five
-resFour=$(( a%b+c ))
+res[3]=$(( a%b+c ))
+
+#usecase six
+echo "Results are:"${res[@]}
