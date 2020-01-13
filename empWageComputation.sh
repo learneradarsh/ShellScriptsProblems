@@ -49,6 +49,7 @@ function calcEmployeeWage(){
 	fi
 	wage=$(( WAGEPERHOUR*empHrs ))
 	echo "Per Day Wage:"$wage
+	#calculate employee total working hours
 	empTotWorkHrs=$(( empTotWorkHrs+empHrs ))
 	totalEmpWage=$(( wage+totalEmpWage ))
 }
