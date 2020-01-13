@@ -6,6 +6,8 @@ readonly FDAYHOUR=8 #Employee full day working hour
 readonly PDAYHOUR=4 #Employee part time working hour
 readonly ISFULLTIME=1
 readonly ISPARTIME=2
+readonly MONTH=20 #total working days in a month
+totalEmpWage=0 #Per month Employee wage
 
 #start
 echo "Welcome to Employee Wage Computation Program"
@@ -40,14 +42,18 @@ function calcEmployeeWage(){
 				;;
 	esac
 	wage=$(( WAGEPERHOUR*empHrs ))
-	echo "Wage:"$wage
+	echo "Per Day Wage:"$wage
+	totalEmpWage=$(( wage+totalEmpWage ))
 }
 
-
-isEmployeePresent
-if (( $?==1 ))
-	then
-	calcEmployeeWage
-else
-	echo "Wage=0"
-fi
+for (( day=1 ; day<=$MONTH ; day++ ))
+do
+	isEmployeePresent
+	if (( $?==1 ))
+		then
+		calcEmployeeWage
+	else
+		echo "Per Day Wage=0"
+	fi
+done
+echo "Monthly Employee Wage:" $totalEmpWage
