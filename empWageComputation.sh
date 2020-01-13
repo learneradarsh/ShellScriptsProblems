@@ -2,6 +2,8 @@
 
 readonly WAGEPERHOUR=20 #Employee wage per hour
 readonly FDAYHOUR=8 #Employee full day working hour
+#USECASE3
+readonly PDAYHOUR=4 #Employee part time working hour
 
 #start
 echo "Welcome to Employee Wage Computation Program"
