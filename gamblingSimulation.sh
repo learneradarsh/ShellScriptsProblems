@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #CONSTANTS
 readonly WIN=1
@@ -12,9 +12,7 @@ totalAmtWon=0 #total amount won
 totalAmtLost=0
 daysWon=0
 daysLost=0
-wonMax=0
-lostMax=0
-
+dayCounter=1
 i=1
 
 function gamble(){
@@ -27,21 +25,29 @@ function gamble(){
 	fi
 }
 
-while (( i<=$gambleAmount ))
+for (( dayCounter=1 ; $dayCounter<=20 ; dayCounter++ ))
 do
-	gamble
-	if (( $?==WIN ))
-	then
-		(( ++gambleAmount ))
-	elif (( gambleAmount==MAXWON ))
-	then
-		echo "YOU WON.AMOUNT IS:" $gambleAmount
-		break
-	elif (( gambleAmount==RESAMT ))
-	then
-		echo "YOU LOSE.PENDING MONEY IS:" $gambleAmount
-		break
-	else
-		(( --gambleAmount ))
-	fi
+	while (( i<=$gambleAmount ))
+	do
+		gamble
+		if (( $?==$WIN ))
+		then
+			(( ++gambleAmount ))
+		elif (( $gambleAmount==$MAXWON ))
+		then
+			echo "YOU WON.AMOUNT IS:" $gambleAmount
+			totalAmtWon=$(( $totalAmtWon+$gambleAmount ))
+			break
+		elif (( $gambleAmount==$RESAMT ))
+		then
+			echo "YOU LOSE.PENDING MONEY IS:" $gambleAmount
+			totalAmtLost=$(( $totalAmtLost+$gambleAmount ))
+			break
+		else
+			(( --gambleAmount ))
+		fi
+		(( i++ ))
+	done
 done
+echo $totalAmtWon
+echo $totalAmtLost
