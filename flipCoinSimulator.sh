@@ -125,33 +125,33 @@ echo "TH %:" $res
 
 #triplet
 echo "Triplet HHH: " ${triplet[111]}
-res=`echo "scale=3; ${triplet[111]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[111]}*100/$multiple" | bc`
 echo "HHH %:" $res
 
 echo "Triplet TTT: " ${triplet[000]}
-res=`echo "scale=3; ${triplet[000]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[000]}*100/$multiple" | bc`
 echo "TTT %:" $res
 
 echo "Triplet HTT: " ${triplet[100]}
-res=`echo "scale=3; ${triplet[100]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[100]}*100/$multiple" | bc`
 echo "HTT %:" $res
 
 echo "Triplet HHT: " ${triplet[110]}
-res=`echo "scale=3; ${triplet[110]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[110]}*100/$multiple" | bc`
 echo "HHT %:" $res
 
 echo "Triplet HTH: " ${triplet[101]}
-res=`echo "scale=3; ${triplet[101]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[101]}*100/$multiple" | bc`
 echo "HTH %:" $res
 
 echo "Triplet THT : " ${triplet[010]}
-res=`echo "scale=3; ${triplet[010]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[010]}*100/$multiple" | bc`
 echo "THT %:" $res
 
 echo "Triplet THH: " ${triplet[011]}
-res=`echo "scale=3; ${triplet[011]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[011]}*100/$multiple" | bc`
 echo "THH %:" $res
 
 echo "Triplet TTH: " ${triplet[001]}
-res=`echo "scale=3; ${triplet[00]*100/$multiple}" | bc`
+res=`echo "scale=3; ${triplet[001]}*100/$multiple" | bc`
 echo "TTH %:" $res
