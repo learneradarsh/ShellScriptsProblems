@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 readonly range=$((999-100+11))
 counter=0
@@ -39,9 +39,9 @@ function secondLargest(){
 }
 
 function secondSmallest(){
-	local first=0
-	local second=0
-	local INT_MIN=0
+	local first=999
+	local second=999
+	local INT_MIN=999
 	local arr=("$@")
 	local size=$(( ${#arr[@]} ))
 	if (( size<2 ))
