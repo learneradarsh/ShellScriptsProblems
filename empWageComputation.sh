@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 #CONSTANTS
@@ -13,6 +14,7 @@ readonly EMPFIXWORKINGHRS=100 #employee fixed working hours in a month
 totalEmpWage=0 #Per month Employee wage
 empTotWorkhrs=0 #Employee total working hours
 declare -a empDailyWage
+totalWorkDay=0
 
 #start
 echo "Welcome to Employee Wage Computation Program"
@@ -62,6 +64,7 @@ do
 	isEmployeePresent
 	if (( $?==1 ))
 		then
+		(( totalWorkDay++ ))
 		calcEmployeeWage
 	else
 		echo "Per Day Wage=0"
@@ -71,3 +74,4 @@ done
 echo "Monthly(Total) Employee Wage:" $totalEmpWage
 echo "Employee Total working hrs:" $empTotWorkHrs
 echo "Employee daily wage:" ${empDailyWage[@]}
+echo "Total Working Days:" $totalWorkDay
