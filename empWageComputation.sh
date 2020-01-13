@@ -4,6 +4,8 @@ readonly WAGEPERHOUR=20 #Employee wage per hour
 readonly FDAYHOUR=8 #Employee full day working hour
 #USECASE3
 readonly PDAYHOUR=4 #Employee part time working hour
+readonly ISFULLTIME=1
+readonly ISPARTIME=2
 
 #start
 echo "Welcome to Employee Wage Computation Program"
@@ -13,18 +15,39 @@ function isEmployeePresent(){
 	local attn=$(( RANDOM%2 ))
 	if (( attn==1 ))
 	then
-		echo "PRESENT"
+		echo "EMPLOYEE IS PRESENT"
+		return 1
 	else
-		echo "ABSENT"
+		echo "EMPLOYEE IS ABSENT"
+		return 0
 	fi
 }
 
-isEmployeePresent
-
 #USECASE 2
 function calcEmployeeWage(){
-	local wage=$(( WAGEPERHOUR*FDAYHOUR ))
-	echo $wage
+	local empTypeCheck=$(( RANDOM%3 ))
+	local wage=0
+	local empHrs=0
+	case $empTypeCheck in
+		$ISFULLTIME)
+				empHrs=FDAYHOUR
+				;;
+		$ISPARTIME)
+				empHrs=PDAYHOUR
+				;;
+		*)
+				empHrs=0
+				;;
+	esac
+	wage=$(( WAGEPERHOUR*empHrs ))
+	echo "Wage:"$wage
 }
 
-calcEmployeeWage
+
+isEmployeePresent
+if (( $?==1 ))
+	then
+	calcEmployeeWage
+else
+	echo "Wage=0"
+fi
