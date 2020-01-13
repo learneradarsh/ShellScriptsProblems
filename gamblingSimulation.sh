@@ -3,6 +3,8 @@
 #CONSTANTS
 readonly WIN=1
 readonly LOSE=0
+readonly MAXWON=150 #maximum won amount limit
+readonly RESAMT=50 #resign amount
 
 #VARIABLES
 gambleAmount=100 #total gamble amount
@@ -31,11 +33,15 @@ do
 	if (( $?==WIN ))
 	then
 		(( ++gambleAmount ))
-	elif (( gambleAmount==0 ))
+	elif (( gambleAmount==MAXWON ))
 	then
-		echo "YOU LOSE:" $gambleAmount
+		echo "YOU WON.AMOUNT IS:" $gambleAmount
+		break
+	elif (( gambleAmount==RESAMT ))
+	then
+		echo "YOU LOSE.PENDING MONEY IS:" $gambleAmount
+		break
 	else
 		(( --gambleAmount ))
 	fi
 done
-echo $gambleAmount
