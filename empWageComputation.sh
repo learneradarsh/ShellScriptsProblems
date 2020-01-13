@@ -1,7 +1,7 @@
 #!/bin/bash
 
-WAGEPERHOUR=20 #Employee wage per hour
-FDAYHOUR=8 #Employee full day working hour
+readonly WAGEPERHOUR=20 #Employee wage per hour
+readonly FDAYHOUR=8 #Employee full day working hour
 
 #start
 echo "Welcome to Employee Wage Computation Program"
