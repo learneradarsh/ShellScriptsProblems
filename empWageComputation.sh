@@ -1,5 +1,8 @@
 #!/bin/bash
 
+WAGEPERHOUR=20 #Employee wage per hour
+FDAYHOUR=8 #Employee full day working hour
+
 #start
 echo "Welcome to Employee Wage Computation Program"
 
@@ -15,3 +18,11 @@ function isEmployeePresent(){
 }
 
 isEmployeePresent
+
+#USECASE 2
+function calcEmployeeWage(){
+	local wage=$(( WAGEPERHOUR*FDAYHOUR ))
+	echo $wage
+}
+
+calcEmployeeWage
