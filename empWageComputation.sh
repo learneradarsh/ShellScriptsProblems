@@ -7,7 +7,9 @@ readonly PDAYHOUR=4 #Employee part time working hour
 readonly ISFULLTIME=1
 readonly ISPARTIME=2
 readonly MONTH=20 #total working days in a month
+readonly EMPFIXWORKINGHRS=100 #employee fixed working hours in a month
 totalEmpWage=0 #Per month Employee wage
+empTotWorkhrs=0 #Employee total working hours
 
 #start
 echo "Welcome to Employee Wage Computation Program"
@@ -41,8 +43,13 @@ function calcEmployeeWage(){
 				empHrs=0
 				;;
 	esac
+	if (( empHrs==$EMPFIXWORKINGHRS ))
+	then
+		break
+	fi
 	wage=$(( WAGEPERHOUR*empHrs ))
 	echo "Per Day Wage:"$wage
+	empTotWorkHrs=$(( empTotWorkHrs+empHrs ))
 	totalEmpWage=$(( wage+totalEmpWage ))
 }
 
@@ -57,3 +64,4 @@ do
 	fi
 done
 echo "Monthly Employee Wage:" $totalEmpWage
+echo "Employee Total working hrs:" $empTotWorkHrs
