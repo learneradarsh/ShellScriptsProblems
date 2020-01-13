@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 declare -a dice=( [1]=0 [2]=0 [3]=0 [4]=0 [5]=0 [6]=0 )
 readonly MAX=10
@@ -29,5 +29,5 @@ function ascSort(){
 ascSort
 echo "Sorted:" ${dice[@]}
 echo "Indexes:" ${!dice[@]}
-echo "Min:" ${!dice[0]}
-echo "Max" ${!dice[5]}
+echo "Min:" ${dice[0]}
+echo "Max" ${dice[5]}
