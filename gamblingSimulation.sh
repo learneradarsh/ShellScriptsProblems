@@ -24,3 +24,18 @@ function gamble(){
 		return 0
 	fi
 }
+
+while (( i<=$gambleAmount ))
+do
+	gamble
+	if (( $?==WIN ))
+	then
+		(( ++gambleAmount ))
+	elif (( gambleAmount==0 ))
+	then
+		echo "YOU LOSE:" $gambleAmount
+	else
+		(( --gambleAmount ))
+	fi
+done
+echo $gambleAmount
