@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 #CONSTANTS
 readonly WIN=1
@@ -15,23 +15,12 @@ lostMax=0
 
 i=1
 
-function gambler(){
-	bet=$((RANDOM%2))
-	if (( $bet==1 ))
+function gamble(){
+	chance=$((RANDOM%2))
+	if (( chance==WIN ))
 	then
-		(( gambleAmount++ ))
 		return 1
 	else
-		(( gambleAmount-- ))
 		return 0
 	fi
 }
-
-while(( i<=$gambleAmount ))
-do
-	gambler
-	if (( $gamebleAmount==0 ))
-	then
-		echo "you lost"
-	(( i++ ))
-done
