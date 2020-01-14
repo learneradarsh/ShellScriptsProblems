@@ -17,8 +17,9 @@ do
 	if [[ $inp == 'Y' ]]
 	then
 		head=$res
-		if (( $(( head-tail )) == 1 ))
+		if (( $(( tail-head )) == 1 ))
 		then
+			head=$(( head+1 ))
 			echo "Your num is:" $head
 			break
 		fi
