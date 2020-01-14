@@ -39,13 +39,17 @@ do
 	if ((gambleAmount==RESAMT))
 	then
 		echo "YOU LOST: AMOUNT IS:" $gambleAmount
+		(( daysLost++ ))
 		totalAmtLost=$(( totalAmtLost+gambleAmount ))
 		echo $totalAmtLost
 	else
 		echo "YOU WON: AMOUNT IS:" $gambleAmount
+		(( daysWon++ ))
 		totalAmtWon=$(( totalAmtWon+gambleAmount ))
 		echo $totalAmtWon
 	fi
 done
 echo "total amt won:" $totalAmtWon
+echo "No. of Days Won:" $daysWon
 echo "total amt lost:" $totalAmtLost
+echo "No. of Days Lost:" $daysLost
