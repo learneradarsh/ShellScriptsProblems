@@ -71,6 +71,7 @@ function isSnake(){
 	done
 }
 
+
 printBoard
 
 echo "Game Starts With Zero:"
@@ -80,7 +81,13 @@ while [[ $playerOnePos -le $HOME ]]
 do
 	echo "Player 1:"
 	d=$(rollDice)
-	playerOnePos=$(( $playerOnePos+$d ))
+	noPlaySum=$(( playerOnePos+d ))
+	if (( $noPlaySum>100 ))
+	then
+		playerOnePos=$(( playerOnePos+0 ))
+	else
+		playerOnePos=$(( $playerOnePos+$d ))
+	fi
 	echo "Dice val:" $d
 	isladder $playerOnePos
 	if (( $noLadder==0 ))
@@ -88,4 +95,11 @@ do
 		isSnake $playerOnePos
 	fi
 	echo "Player 1 Current Pos:" $playerOnePos
+	echo "==================================="
+	if (( $playerOnePos == $HOME ))
+	then
+		echo "PLAYER 1 YOU WON"
+		echo "YOUR POSITION IS:" $playerOnePos
+		break
+	fi
 done
