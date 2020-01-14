@@ -152,18 +152,76 @@ function ascSort(){
 	return ${dict[(len-1)]}
 }
 
+function getKey(){ #getKey [dictionary] [maxVal]
+	local dCommon=("$@")
+	local x=$2
+	for key in ${!dCommon[@]}
+	do
+		if (( ${dCommon[key]} == $x ))
+		then
+			return $key
+			break
+		fi
+	done
+}
+
 sArr=${singlet[@]}
 echo "Singlet:"
 ascSort ${sArr[@]}
-#x=$(( $? ))
-#echo ${!result}
+sMaxVal=$?
+getKey ${singlet[@]} $sMaxVal
+if (( $?==1 ))
+then
+	echo "WINNING INDEX: H"
+else
+	echo "WINNING INDEX: T"
+fi
+
 
 dArr=${doublet[@]}
 echo "Doublet:"
 ascSort ${dArr[@]}
-#echo "Winning Combination Doublet:"
+dMax=$?
+getKey ${doublet[@]} $dMax
+if (( $?==11 ))
+then
+	echo "WINNING INDEX: HH"
+elif (( $?==10 ))
+then
+	echo "WINNING INDEX: HT"
+elif (( $?==01 ))
+then
+	echo "WINNING INDEX: TH"
+else
+	echo "WINNING INDEX:TT"
+fi
 
 tArr=${triplet[@]}
 echo "Triplet:"
 ascSort ${tArr[@]}
-#echo "Winning Combination Triplet:"
+tMax=$?
+getKey ${triplet[@]} $tMax
+if (( $?==000 ))
+then
+	echo "WINNING INDEX: TTT"
+elif (( $?==001 ))
+then
+	echo "WINNING INDEX: TTH"
+elif (( $?==011 ))
+then
+	echo "WINNING INDEX: THH"
+elif (( $?==111 ))
+then
+	echo "WINNING INDEX: HHH"
+elif (( $?==101 ))
+then
+	echo "WINNING INDEX: HTH"
+elif (( $?==010 ))
+then
+	echo "WINNING INDEX: THT"
+elif (( $?==110 ))
+then
+	echo "WINNING INDEX: HHT"
+else
+	echo "WINNING INDEX: HTT"
+fi
