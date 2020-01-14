@@ -11,7 +11,9 @@ declare -a SNAKET=(20 10 54 73 61)
 declare -a LADDERT=(5 14 53 64)
 declare -a LADDERH=(58 49 72 83)
 playerOnePos=0
-winRoll=0
+playerTwoPos=0
+winRollOne=0
+winRollTwo=0
 
 echo "WELCOME TO SNAKE LADDER GAME"
 echo "========LADDER=========="
@@ -36,7 +38,8 @@ function rollDice(){
 	echo $dice
 }
 
-function isladder(){
+function isLadder(){
+	local pos=$1
 	local ladCount=0
 	local ladLen=${#LADDERT[@]}
 	while (( $ladCount<$ladLen ))
@@ -44,7 +47,7 @@ function isladder(){
 		if (( ${LADDERT[$ladCount]}==$1 ))
 		then
 			echo "Got ladder"
-			playerOnePos=${LADDERH[$ladCount]}
+			pos=${LADDERH[$ladCount]}
 			noLadder=1
 			break
 		else
@@ -52,9 +55,11 @@ function isladder(){
 		fi
 		(( ladCount++ ))
 	done
+	return $pos
 }
 
 function isSnake(){
+	local pos=$1
 	local snakeCount=0
 	local snakeLen=${#SNAKEH[@]}
 	while (( $snakeCount<$snakeLen ))
@@ -62,7 +67,7 @@ function isSnake(){
 		if (( ${SNAKEH[$snakeCount]}==$1 ))
 		then
 			echo "Got Snake"
-			playerOnePos=${SNAKET[$snakeCount]}
+			pos=${SNAKET[$snakeCount]}
 			noSnake=1
 			break
 		else
@@ -70,6 +75,7 @@ function isSnake(){
 		fi
 		(( snakeCount++ ))
 	done
+	return $pos
 }
 
 
@@ -78,32 +84,80 @@ printBoard
 echo "Game Starts With Zero:"
 echo "Player 1 Pos: 0"
 
-while [[ $playerOnePos -le $HOME ]]
-do
-	echo "Player 1:"
-	d=$(rollDice)
-	(( winRoll++ ))
-	noPlaySum=$(( playerOnePos+d ))
-	if (( $noPlaySum>100 )) #no play logic
-	then
-		playerOnePos=$(( playerOnePos+0 ))
-	else
-		playerOnePos=$(( $playerOnePos+$d ))
-	fi
-	echo "Dice val:" $d
-	isladder $playerOnePos
-	if (( $noLadder==0 ))
-	then
-		isSnake $playerOnePos
-	fi
-	echo "Player 1 Current Pos:" $playerOnePos
-	echo "==================================="
-	if (( $playerOnePos == $HOME ))
-	then
-		echo "PLAYER 1 YOU WON"
-		echo "YOUR POSITION IS:" $playerOnePos
-		break
-	fi
-done
+function playOne(){
+	while [[ $playerOnePos -le $HOME ]]
+	do
+		echo "Player 1:"
+		local d=$(rollDice)
+		(( winRollOne++ ))
+		local noPlaySum=$(( playerOnePos+d ))
+		if (( $noPlaySum>100 )) #no play logic
+		then
+			playerOnePos=$(( playerOnePos+0 ))
+		else
+			playerOnePos=$(( $playerOnePos+$d ))
+		fi
+		echo "Dice val:" $d
+		isLadder $playerOnePos
+		playerOnePos=$?
+		if (( $noLadder==0 ))
+		then
+			isSnake $playerOnePos
+			playerOnePos=$?
+		fi
+		echo "Player 1 Current Pos:" $playerOnePos
+		echo "==================================="
+		if (( $playerOnePos == $HOME ))
+		then
+			echo "PLAYER 1 YOU COMPLETED"
+			echo "YOUR POSITION IS:" $playerOnePos
+			break
+		fi
+	done
+}
 
-echo "TOTAL DICE ROLLS TO WIN THE GAME:" $winRoll
+function playTwo(){
+	while [[ $playerTwoPos -le $HOME ]]
+	do
+		echo "Player 2:"
+		local d=$(rollDice)
+		(( winRollTwo++ ))
+		local noPlaySum=$(( playerTwoPos+d ))
+		if (( $noPlaySum>100 )) #no play logic
+		then
+			playerTwoPos=$(( playerTwoPos+0 ))
+		else
+			playerTwoPos=$(( $playerTwoPos+$d ))
+		fi
+		echo "Dice val:" $d
+		isLadder $playerTwoPos
+		playerTwoPos=$?
+		if (( $noLadder==0 ))
+		then
+			isSnake $playerTwoPos
+			playerTwoPos=$?
+		fi
+		echo "Player 2 Current Pos:" $playerTwoPos
+		echo "===================================="
+		if (( $playerTwoPos == $HOME ))
+		then
+			echo "PLAYER 2 YOU COMPLETED"
+			echo "YOUR POSITION IS:" $playerTwoPos
+			break
+		fi
+	done
+}
+
+playOne
+playTwo
+
+echo "TOTAL DICE ROLLS TO WIN THE GAME PLAYER 1:" $winRollOne
+echo "TOTAL DICE ROLLS TO WIN THE GAME PLAYER 2:" $winRollTwo
+
+echo "======================================================"
+if (( winRollOne < winRollTwo ))
+then
+	echo "Final Winner is Player 1"
+else
+	echo "Final Winner is Player 2"
+fi
