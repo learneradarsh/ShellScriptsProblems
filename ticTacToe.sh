@@ -6,6 +6,18 @@ echo "======================"
 #VARIABLES
 board=(. . . . . . . . .)
 
+function assign(){
+	rand=$((RANDOM%2))
+	if (( rand==1 ))
+	then
+		echo "Player assigned: 0"
+		echo "Computer assgined: X"
+	else
+		echo "Player assigned: X"
+		echo "Computer assigned: 0"
+	fi
+}
+
 function printBoard(){
   echo "r\c 0 1 2"
   echo "0   ${board[0]} ${board[1]} ${board[2]}"
@@ -14,3 +26,4 @@ function printBoard(){
 }
 
 printBoard
+assign
