@@ -1,31 +1,33 @@
-#!/bin/bash
+#!/bin/bash -x
 
-readonly YES="Y"
-readonly NO="N"
+head=0
+tail=100
+res=0
 
 echo "Think of a Number between 1 to 100:"
-
-function greater(){
-	echo "greater"
+function calc(){
+	res=$(( (head+tail)/2 ))
+	echo $res
 }
 
-function smaller(){
-	for (( i=50 ; i<50 ; i++ ))
-	do
-		return 
-	done
-}
-
-while :
+while (( $head <= $tail ))
 do
-read -p "Number is less than 50(Y/N):" ans
-if (( "$ans" == "$YES" ))
-then
-	smaller
-elif (( "$ans" == "$NO" ))
-then
-	greater
-else
-	echo "Not a valid input"
-fi
+	calc
+	read -p "Number is greater than $res :(Y/N)" inp
+	if [[ $inp == 'Y' ]]
+	then
+		head=$res
+		if (( $(( head-tail )) == 1 ))
+		then
+			echo "Your num is:" $head
+			break
+		fi
+	else
+		tail=$res
+		if (( $(( tail-head )) == 1 ))
+		then
+			echo "Your num is:" $tail
+			break
+		fi
+	fi
 done
