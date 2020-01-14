@@ -29,8 +29,14 @@ function printBoard(){
 	echo "=========================GAMEBOARD==============================="
 }
 
+function rollDice(){
+	dice=$((RANDOM%6+1))
+	echo $dice
+}
+
 printBoard
 
 echo "Game Starts With Zero:"
 echo "Player 1: 0"
 echo "Player 2: 0"
+echo "Dice Value:" $(rollDice)
