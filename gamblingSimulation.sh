@@ -49,7 +49,16 @@ do
 		echo "LUCKY DAY"
 	fi
 done
+
 echo "total amt won:" $totalAmtWon
 echo "No. of Days Won:" $daysWon
 echo "total amt lost:" $totalAmtLost
 echo "No. of Days Lost:" $daysLost
+
+
+if ((totalAmtWon>2000)) #totalAmtWon>totalamountspentin20days
+then
+	echo "Continue playing"
+else
+	echo "Stop gamblig"
+fi
