@@ -7,7 +7,7 @@ echo "======================"
 board=(. . . . . . . . .)
 
 function assign(){
-	rand=$((RANDOM%2))
+	local rand=$((RANDOM%2))
 	if (( rand==1 ))
 	then
 		echo "Player assigned: 0"
@@ -25,5 +25,16 @@ function printBoard(){
   echo "2   ${board[6]} ${board[7]} ${boad[8]}"
 }
 
+function doToss(){
+	local rand=$((RANDOM%2))
+	if (( rand==1 ))
+	then
+		echo "Player won toss so play first"
+	else
+		echo "Computer won toss so play first"
+	fi
+}
+
 printBoard
 assign
+doToss
