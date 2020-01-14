@@ -11,6 +11,7 @@ declare -a SNAKET=(20 10 54 73 61)
 declare -a LADDERT=(5 14 53 64)
 declare -a LADDERH=(58 49 72 83)
 playerOnePos=0
+winRoll=0
 
 echo "WELCOME TO SNAKE LADDER GAME"
 echo "========LADDER=========="
@@ -81,6 +82,7 @@ while [[ $playerOnePos -le $HOME ]]
 do
 	echo "Player 1:"
 	d=$(rollDice)
+	(( winRoll++ ))
 	noPlaySum=$(( playerOnePos+d ))
 	if (( $noPlaySum>100 )) #no play logic
 	then
@@ -103,3 +105,5 @@ do
 		break
 	fi
 done
+
+echo "TOTAL DICE ROLLS TO WIN THE GAME:" $winRoll
