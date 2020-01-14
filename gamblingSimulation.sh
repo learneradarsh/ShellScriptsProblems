@@ -41,12 +41,12 @@ do
 		echo "YOU LOST: AMOUNT IS:" $gambleAmount
 		(( daysLost++ ))
 		totalAmtLost=$(( totalAmtLost+gambleAmount ))
-		echo $totalAmtLost
+		echo "UNLUCKY DAY"
 	else
 		echo "YOU WON: AMOUNT IS:" $gambleAmount
 		(( daysWon++ ))
 		totalAmtWon=$(( totalAmtWon+gambleAmount ))
-		echo $totalAmtWon
+		echo "LUCKY DAY"
 	fi
 done
 echo "total amt won:" $totalAmtWon
