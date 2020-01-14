@@ -82,7 +82,7 @@ do
 	echo "Player 1:"
 	d=$(rollDice)
 	noPlaySum=$(( playerOnePos+d ))
-	if (( $noPlaySum>100 ))
+	if (( $noPlaySum>100 )) #no play logic
 	then
 		playerOnePos=$(( playerOnePos+0 ))
 	else
