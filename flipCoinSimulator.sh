@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 #ASSUMPTIONS
 #1=HEADS
@@ -99,60 +99,46 @@ do
 done
 
 #singlet
-#echo "Singlet HeadsC: " ${singlet[1]}
 res=`echo "scale=3; ${singlet[1]}*100/$multiple" | bc`
 echo "HEADS %:" $res
-#echo "Singlet TailsC: " ${singlet[0]}
 res=`echo "scale=3; ${singlet[0]}*100/$multiple" | bc`
 echo "TAILS %:" $res
 
 #doublet
-#echo "Doublet TT: " ${doublet[00]}
 res=`echo "scale=3; ${doublet[00]}*100/$multiple" | bc`
 echo "TT %:" $res
 
-#echo "Doublet HH: " ${doublet[11]}
 res=`echo "scale=3; ${doublet[11]}*100/$multiple" | bc`
 echo "HH %:" $res
 
-#echo "Doublet HT: " ${doublet[10]}
 res=`echo "scale=3; ${doublet[10]}*100/$multiple" | bc`
 echo "HT %:" $res
 
-#echo "Doublet TH: " ${doublet[01]}
 res=`echo "scale=3; ${doublet[01]}*100/$multiple" | bc`
 echo "TH %:" $res
 
 #triplet
-#echo "Triplet HHH: " ${triplet[111]}
 res=`echo "scale=3; ${triplet[111]}*100/$multiple" | bc`
 echo "HHH %:" $res
 
-#echo "Triplet TTT: " ${triplet[000]}
 res=`echo "scale=3; ${triplet[000]}*100/$multiple" | bc`
 echo "TTT %:" $res
 
-#echo "Triplet HTT: " ${triplet[100]}
 res=`echo "scale=3; ${triplet[100]}*100/$multiple" | bc`
 echo "HTT %:" $res
 
-#echo "Triplet HHT: " ${triplet[110]}
 res=`echo "scale=3; ${triplet[110]}*100/$multiple" | bc`
 echo "HHT %:" $res
 
-#echo "Triplet HTH: " ${triplet[101]}
 res=`echo "scale=3; ${triplet[101]}*100/$multiple" | bc`
 echo "HTH %:" $res
 
-#echo "Triplet THT : " ${triplet[010]}
 res=`echo "scale=3; ${triplet[010]}*100/$multiple" | bc`
 echo "THT %:" $res
 
-#echo "Triplet THH: " ${triplet[011]}
 res=`echo "scale=3; ${triplet[011]}*100/$multiple" | bc`
 echo "THH %:" $res
 
-#echo "Triplet TTH: " ${triplet[001]}
 res=`echo "scale=3; ${triplet[001]}*100/$multiple" | bc`
 echo "TTH %:" $res
 
@@ -160,21 +146,24 @@ echo "TTH %:" $res
 function ascSort(){
 	dict=("$@")
 	dict=($(echo ${dict[*]}| tr " " "\n" | sort -n))
-	echo "Soreted:" ${dict[@]}
+	echo "Sorted:" ${dict[@]}
+	len=$(( ${#dict[@]} ))
+	echo "MaxVal:" ${dict[(len-1)]}
+	return ${dict[(len-1)]}
 }
 
 sArr=${singlet[@]}
 echo "Singlet:"
 ascSort ${sArr[@]}
-len=${#sArr[@]}
-echo "Max:" ${sArr[len]}
+#x=$(( $? ))
+#echo ${!result}
 
 dArr=${doublet[@]}
 echo "Doublet:"
 ascSort ${dArr[@]}
-echo "Max:" ${!dArr[@]}
+#echo "Winning Combination Doublet:"
 
 tArr=${triplet[@]}
 echo "Triplet:"
 ascSort ${tArr[@]}
-echo "Max:" ${!tArr[@]}
+#echo "Winning Combination Triplet:"
