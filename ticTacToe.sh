@@ -51,8 +51,10 @@ function doToss(){
 
 
 function set(){
+  #echo "1:" $1
+  #echo "2:" $2
   idx=$(( $1 * 3 + $2 ))
-  if [ ${board[$idx]} == "." ]
+  if [[ ${board[$idx]} == "." ]]
   then
     board[$idx]=$3
     player=$((player%2+1))
@@ -73,7 +75,7 @@ function checkDraw(){
 	local len=${#board[@]}
 	while (( i<len ))
 	do
-		if [ $board[$i] != "." ] && [ $gamestatus != 0 ]
+		if [ ${board[$i]} != "." ] && [ $gamestatus != 0 ]
 		then
 			drawCounter=1
 			break
@@ -93,7 +95,7 @@ function checkgame(){
   checkmatch 2 4 6
 }
 
-function turn(){
+function turnH(){
 	print
  	echo ""
  	echo "  Command:"
@@ -128,17 +130,19 @@ function turnC(){
  	while (( 1 == 1 ))
 	do
 		printBoard
- 		read -r cmd a b
+ 		#read -r cmd a b
 		#cmd="set"
-		#a=$(( RANDOM%9 ))
-		#b=$(( RANDOM%9 ))
-    	if (( $cmd == "set" ))
-		then
-	  		set $a $b $sym
-			break
-    	else
-			echo "wrong command, try again."
-    	fi
+		a=$(( RANDOM%3 ))
+		b=$(( RANDOM%3 ))
+		set $a $b $sym
+		break
+    	#if (( $cmd == "set" ))
+		#then
+	  	#	set $a $b $sym
+		#	break
+    	#else
+		#	echo "wrong command, try again."
+    	#fi
   done
   checkgame
   #checkDraw
@@ -167,7 +171,16 @@ do
 		sym=$computerMoveSign
 		echo "Computer turn: ($sym)"
 	fi
-	turn $sym
+	if (( playerT == 1 ))
+	then
+		turnH $sym #human move
+		computerT=1
+		playerT=0
+	else
+		turnC $sym #computer move
+		playerT=1
+		computerT=0
+	fi
 	if (( $gamestatus != 1 ))
 	then
 		break
@@ -175,14 +188,6 @@ do
 	then
 		echo "Game Draw"
 		break
-	fi
-	if (( playerT == 1 ))
-	then
-		computerT=1
-		playerT=0
-	else
-		playerT=1
-		computerT=0
 	fi
 done
 
