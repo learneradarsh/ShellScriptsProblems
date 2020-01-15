@@ -13,6 +13,8 @@ playerTwoPos=0
 winRollOne=0
 winRollTwo=0
 
+clear
+
 echo "WELCOME TO SNAKE LADDER GAME"
 echo "========LADDER=========="
 echo "LT-LH"
@@ -60,7 +62,7 @@ function isLadder(){
 	do
 		if (( ${LADDERT[$ladCount]}==$1 ))
 		then
-			echo "Got ladder"
+			echo "$(tput setab 2)Got ladder$(tput sgr 0)"
 			pos=${LADDERH[$ladCount]}
 			noLadder=1
 			break
@@ -80,7 +82,7 @@ function isSnake(){
 	do
 		if (( ${SNAKEH[$snakeCount]}==$1 ))
 		then
-			echo "Got Snake"
+			echo "$(tput setab 1)Got Snake$(tput sgr 0)"
 			pos=${SNAKET[$snakeCount]}
 			noSnake=1
 			break
