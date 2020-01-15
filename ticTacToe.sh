@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 echo "WELCOME TO TIC TAC TOE"
 echo "======================"
@@ -10,8 +10,9 @@ board=(. . . . . . . . .)
 playerMoveSign=0
 computerMoveSign=0
 playerT=0
-ComputerT=0
-gamestatus=1
+computerT=0
+gamestatus=1 #gameon
+drawCounter=0
 
 function assign(){
 	local rand=$((RANDOM%2))
@@ -63,8 +64,22 @@ function set(){
 function checkmatch(){
   if [ ${board[$1]} != "." ] && [ ${board[$1]} == ${board[$2]} ] && [ ${board[$2]} == ${board[$3]} ]
   then
-    gamestatus=0
+    gamestatus=0 #gameover
   fi
+}
+
+function checkDraw(){
+	local i=0
+	local len=${#board[@]}
+	while (( i<len ))
+	do
+		if [ $board[$i] != "." ] && [ $gamestatus != 0 ]
+		then
+			drawCounter=1
+			break
+		fi
+		(( i++ ))
+	done
 }
 
 function checkgame(){
@@ -96,6 +111,7 @@ function turn(){
     	fi
   done
   checkgame
+  #checkDraw
   if (( $gamestatus != 1 ))
 	then
 	    echo "Gameover"
@@ -103,6 +119,38 @@ function turn(){
 	    echo "($sym) win!!"
   fi
 }
+
+function turnC(){
+	print
+ 	echo ""
+ 	echo "  Command:"
+ 	echo "	1. set [row] [column]"
+ 	while (( 1 == 1 ))
+	do
+		printBoard
+ 		read -r cmd a b
+		#cmd="set"
+		#a=$(( RANDOM%9 ))
+		#b=$(( RANDOM%9 ))
+    	if (( $cmd == "set" ))
+		then
+	  		set $a $b $sym
+			break
+    	else
+			echo "wrong command, try again."
+    	fi
+  done
+  checkgame
+  #checkDraw
+  if (( $gamestatus != 1 ))
+	then
+	    echo "Gameover"
+	    player=$((player%2+1))
+	    echo "($sym) win!!"
+  fi
+
+}
+
 printBoard
 assign
 doToss
@@ -122,6 +170,10 @@ do
 	turn $sym
 	if (( $gamestatus != 1 ))
 	then
+		break
+	elif (( $drawCounter == 1 ))
+	then
+		echo "Game Draw"
 		break
 	fi
 	if (( playerT == 1 ))
