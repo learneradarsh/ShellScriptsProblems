@@ -51,15 +51,13 @@ function doToss(){
 
 
 function set(){
-  #echo "1:" $1
-  #echo "2:" $2
   idx=$(( $1 * 3 + $2 ))
   if [[ ${board[$idx]} == "." ]]
   then
     board[$idx]=$3
     player=$((player%2+1))
   else
-    echo "You can't place there!"
+    	echo "You can't place there!"
   fi
 }
 
@@ -107,6 +105,8 @@ function turnH(){
     	if (( $cmd == "set" ))
 		then
 	  		set $a $b $sym
+			humanA=$a
+			humanB=$b
 			break
     	else
 			echo "wrong command, try again."
@@ -122,6 +122,16 @@ function turnH(){
   fi
 }
 
+#function winBlockMoveC(){
+#	win=(00 02 20 22)
+#}
+
+#function normalMove(){
+#}
+
+arrA=(0 0 2 2 1)
+arrB=(0 2 0 2 1)
+
 function turnC(){
 	print
  	echo ""
@@ -130,19 +140,19 @@ function turnC(){
  	while (( 1 == 1 ))
 	do
 		printBoard
- 		#read -r cmd a b
-		#cmd="set"
-		a=$(( RANDOM%3 ))
-		b=$(( RANDOM%3 ))
+		count=0
+		while (( count < 9 ))
+		do
+			a=${arrA[$count]}
+			b=${arrB[$count]}
+			if [[ ${board[$count]} == "." ]]
+			then
+				break
+			fi
+			(( count++ ))
+		done
 		set $a $b $sym
 		break
-    	#if (( $cmd == "set" ))
-		#then
-	  	#	set $a $b $sym
-		#	break
-    	#else
-		#	echo "wrong command, try again."
-    	#fi
   done
   checkgame
   #checkDraw
@@ -152,7 +162,6 @@ function turnC(){
 	    player=$((player%2+1))
 	    echo "($sym) win!!"
   fi
-
 }
 
 printBoard
