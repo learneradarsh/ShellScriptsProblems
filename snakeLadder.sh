@@ -1,8 +1,6 @@
 #!/bin/bash -x
 
 #CONSTANTS
-RED='\033[0;31m'
-GREEN='\033[0;32m'
 HOME=100
 
 #ARRAYS
@@ -17,12 +15,14 @@ winRollTwo=0
 
 echo "WELCOME TO SNAKE LADDER GAME"
 echo "========LADDER=========="
+echo "LT-LH"
 echo "5-58"
 echo "14-49"
 echo "53-72"
 echo "64-83"
 
 echo "=======SNAKES========"
+echo "SH-ST"
 echo "38-20"
 echo "51-10"
 echo "76-54"
@@ -30,7 +30,21 @@ echo "91-73"
 echo "97-61"
 
 function printBoard(){
+	echo ""
+	echo ""
 	echo "=========================GAMEBOARD==============================="
+	echo "100 	99 	98 	97/SH 	96 	95 	94 	93 	92 	91/SH"
+	echo "81  	82 	83/H 	84 	85 	86 	87 	88 	89 	90"
+	echo "80  	79 	78 	77 	76/SH 	75 	74 	73/ST 	72/LH 	71"
+	echo "61/ST  	62 	63 	64/LT 	65 	66 	67 	68 	69 	70"
+	echo "60  	59 	58/LH 	57 	56 	55 	54/ST 	53/LT 	52 	51/SH"
+	echo "41  	42 	43 	44 	45 	46 	47 	48 	49/LH 	50"
+	echo "40  	39 	38/SH 	37 	36 	35 	34 	33 	32 	31"
+	echo "21  	22 	23 	24 	25 	26 	27 	28 	29 	30"
+	echo "20/ST  	19 	18 	17 	16 	15 	14/LT 	13 	12 	11"
+	echo "1	2	3 	4 	5/LT 	6 	7  	8  	9  	10/ST"
+	echo ""
+	echo ""
 }
 
 function rollDice(){
@@ -87,6 +101,7 @@ echo "Player 1 Pos: 0"
 function playOne(){
 	while [[ $playerOnePos -le $HOME ]]
 	do
+		printBoard
 		echo "Player 1:"
 		local d=$(rollDice)
 		(( winRollOne++ ))
@@ -106,7 +121,7 @@ function playOne(){
 			playerOnePos=$?
 		fi
 		echo "Player 1 Current Pos:" $playerOnePos
-		echo "==================================="
+		#echo "==================================="
 		if (( $playerOnePos == $HOME ))
 		then
 			echo "PLAYER 1 YOU COMPLETED"
@@ -119,6 +134,7 @@ function playOne(){
 function playTwo(){
 	while [[ $playerTwoPos -le $HOME ]]
 	do
+		printBoard
 		echo "Player 2:"
 		local d=$(rollDice)
 		(( winRollTwo++ ))
@@ -138,7 +154,7 @@ function playTwo(){
 			playerTwoPos=$?
 		fi
 		echo "Player 2 Current Pos:" $playerTwoPos
-		echo "===================================="
+		#echo "===================================="
 		if (( $playerTwoPos == $HOME ))
 		then
 			echo "PLAYER 2 YOU COMPLETED"
@@ -151,9 +167,13 @@ function playTwo(){
 playOne
 playTwo
 
+echo ""
+echo ""
 echo "TOTAL DICE ROLLS TO WIN THE GAME PLAYER 1:" $winRollOne
 echo "TOTAL DICE ROLLS TO WIN THE GAME PLAYER 2:" $winRollTwo
 
+echo ""
+echo ""
 echo "======================================================"
 if (( winRollOne < winRollTwo ))
 then
