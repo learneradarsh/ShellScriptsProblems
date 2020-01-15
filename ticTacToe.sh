@@ -33,7 +33,7 @@ function printBoard(){
   echo "r\c 0 1 2"
   echo "0   ${board[0]} ${board[1]} ${board[2]}"
   echo "1   ${board[3]} ${board[4]} ${board[5]}"
-  echo "2   ${board[6]} ${board[7]} ${boad[8]}"
+  echo "2   ${board[6]} ${board[7]} ${board[8]}"
 }
 
 function doToss(){
@@ -51,7 +51,8 @@ function doToss(){
 
 function set(){
   idx=$(( $1 * 3 + $2 ))
-  if [ ${board[$idx]} == "." ]; then 
+  if [ ${board[$idx]} == "." ]
+  then
     board[$idx]=$3
     player=$((player%2+1))
   else
@@ -77,12 +78,36 @@ function checkgame(){
   checkmatch 2 4 6
 }
 
-
+function turn(){
+	print
+ 	echo ""
+ 	echo "  Command:"
+ 	echo "	1. set [row] [column]"
+ 	while (( 1 == 1 ))
+	do
+		printBoard
+ 		read -r cmd a b
+    	if (( $cmd == "set" ))
+		then
+	  		set $a $b $sym
+			break
+    	else
+			echo "wrong command, try again."
+    	fi
+  done
+  checkgame
+  if (( $gamestatus != 1 ))
+	then
+	    echo "Gameover"
+	    player=$((player%2+1))
+	    echo "($sym) win!!"
+  fi
+}
 printBoard
 assign
 doToss
 
-# infinit game loop
+#gameloop
 while (( 1==1 ))
 do
  	echo ""
@@ -94,39 +119,18 @@ do
 		sym=$computerMoveSign
 		echo "Computer turn: ($sym)"
 	fi
- 	print
- 	echo ""
- 	echo "  Command:"
- 	echo "	1. set [row] [column]"
- 	echo "	2. exit"
- 	while (( 1 == 1 ))
-	do
- 		read -r cmd a b
-    	if (( $cmd == "set" ))
-		then
-	  		set $a $b $sym
-			break
-    	elif (( $cmd == "exit" ))
-		then
-			 break
-    	else
-			echo "wrong command, try again."
-    	fi
-  done
-  checkgame
-  if (( $gamestatus != 1 ))
+	turn $sym
+	if (( $gamestatus != 1 ))
 	then
-	    echo "Gameover"
-	    player=$((player%2+1))
-	    echo "Player $player ($sym) win!!"
-    	 while (( 1 == 1 ))
-		 do
-    	 read -r cmd n
-    	 if (( $cmd == "exit" ))
-		 then
-	    	 break
-    	 fi
-    	done
-  fi
+		break
+	fi
+	if (( playerT == 1 ))
+	then
+		computerT=1
+		playerT=0
+	else
+		playerT=1
+		computerT=0
+	fi
 done
 
