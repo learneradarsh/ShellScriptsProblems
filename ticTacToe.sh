@@ -31,6 +31,7 @@ function assign(){
 	fi
 }
 
+#to print board
 function printBoard(){
   echo "r\c 0 1 2"
   echo "0   ${board[0]} ${board[1]} ${board[2]}"
@@ -38,6 +39,7 @@ function printBoard(){
   echo "2   ${board[6]} ${board[7]} ${board[8]}"
 }
 
+#who will play first
 function doToss(){
 	local rand=$((RANDOM%2))
 	if (( rand==1 ))
@@ -50,7 +52,7 @@ function doToss(){
 	fi
 }
 
-
+#set value to board
 function set(){
   idx=$(( $1 * 3 + $2 ))
   if [[ ${board[$idx]} == "." ]]
@@ -63,6 +65,7 @@ function set(){
   fi
 }
 
+#check win condition
 function checkmatch(){
   if [[ "${board[$1]}" != "." ]] && [[ "${board[$1]}" == "${board[$2]}" ]] && [[ "${board[$2]}" == "${board[$3]}" ]]
   then
@@ -71,6 +74,7 @@ function checkmatch(){
   fi
 }
 
+#check draw condition
 function checkDraw(){
 	local i=0
 	local len=${#board[@]}
@@ -85,6 +89,7 @@ function checkDraw(){
 	done
 }
 
+#win condition combinations
 function checkgame(){
   checkmatch 0 1 2
   checkmatch 3 4 5
@@ -96,6 +101,7 @@ function checkgame(){
   checkmatch 2 4 6
 }
 
+#human turn
 function turnH(){
 	print
  	echo ""
@@ -135,21 +141,23 @@ function winMove(){
 	do
 		if [[ ${board[$1]} != "." ]] && [[ ${board[$1]} == ${board[$2]} ]] && [[ ${board[$2]} == ${board[$3]} ]]
 		then
+			echo "WIN"
 			winFlag=0
 		fi
 		if [[ $winFlag == 0 ]] && [[ ${board[counter]} == "." ]]
 		then
 			echo $a $b
+			break
 		fi
 		(( counter++ ))
 	done
-echo 0 1
 }
 
 #normal move
 arrA=(0 0 2 2 1)
 arrB=(0 2 0 2 1)
 
+#computer turn
 function turnC(){
 	print
  	echo ""
@@ -159,6 +167,7 @@ function turnC(){
 	do
 		printBoard
 		count=0
+		#to find move
 		while (( count < 9 ))
 		do
 			a=${arrA[$count]}
@@ -169,7 +178,6 @@ function turnC(){
 			fi
 			(( count++ ))
 		done
-		#echo $(winMove $a $b)
 		set $a $b $sym
 		break
   done
