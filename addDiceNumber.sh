@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-a=$((RANDOM%6))
-b=$((RANDOM%6))
-sumOfRandomDiceNumber=$((a+b))
+firstRandNum=$((RANDOM%6))
+secRandNum=$((RANDOM%6))
+sumOfRandomDiceNumber=$((firstRandNum+secRandNum))
 echo $sumOfRandomDiceNumber
