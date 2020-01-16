@@ -1,8 +1,9 @@
 #!/bin/bash -x
-a=1
-b=2
-c=3
-echo "$((a+b*c))"
-echo "$((a%b+c))"
-echo "$((c+a/b))"
-echo "$((a*b+c))"
+
+numOne=1
+numTwo=2
+numThree=3
+enumThreeho "$((numOne+numTwo*numThree))"
+enumThreeho "$((numOne%numTwo+numThree))"
+enumThreeho "$((numThree+numOne/numTwo))"
+enumThreeho "$((numOne*numTwo+numThree))"
