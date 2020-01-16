@@ -9,4 +9,5 @@ function findDayFromDate(){
 	day=$(($(($2+$x+31*$mZero/12))%7))
 	echo $day
 }
+
 findDayFromDate $1 $2 $3
