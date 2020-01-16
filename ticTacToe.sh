@@ -64,9 +64,10 @@ function set(){
 }
 
 function checkmatch(){
-  if [ ${board[$1]} != "." ] && [ ${board[$1]} == ${board[$2]} ] && [ ${board[$2]} == ${board[$3]} ]
+  if [[ "${board[$1]}" != "." ]] && [[ "${board[$1]}" == "${board[$2]}" ]] && [[ "${board[$2]}" == "${board[$3]}" ]]
   then
     gamestatus=0 #gameover
+	 return 0
   fi
 }
 
@@ -124,6 +125,28 @@ function turnH(){
 }
 
 
+#To find winMove
+function winMove(){
+	#local sym=$3
+	local a=$1
+	local b=$2
+	local counter=0
+	while (( counter < 9 ))
+	do
+		if [[ ${board[$1]} != "." ]] && [[ ${board[$1]} == ${board[$2]} ]] && [[ ${board[$2]} == ${board[$3]} ]]
+		then
+			winFlag=0
+		fi
+		if [[ $winFlag == 0 ]] && [[ ${board[counter]} == "." ]]
+		then
+			echo $a $b
+		fi
+		(( counter++ ))
+	done
+echo 0 1
+}
+
+#normal move
 arrA=(0 0 2 2 1)
 arrB=(0 2 0 2 1)
 
@@ -140,13 +163,13 @@ function turnC(){
 		do
 			a=${arrA[$count]}
 			b=${arrB[$count]}
-			local calx=$(( a * 3 + b ))
-			if [[ ${board[$calx]} == "." ]]
+			if [[ ${board[(a*3+b)]} == "." ]]
 			then
 				break
 			fi
 			(( count++ ))
 		done
+		#echo $(winMove $a $b)
 		set $a $b $sym
 		break
   done
