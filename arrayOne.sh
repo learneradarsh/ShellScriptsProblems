@@ -4,10 +4,12 @@ readonly range=$((999-100+11))
 counter=0
 i=1
 
+#function to generate three digit random number
 function genThreeDigitNumber(){
 	echo "$(($((RANDOM%range))+100))"
 }
 
+#function to find second largest number from given array
 function secondLargest(){
 	local first=0
 	local second=0
@@ -38,6 +40,7 @@ function secondLargest(){
 	fi
 }
 
+#function to find second smallest value from given value
 function secondSmallest(){
 	local first=999
 	local second=999
