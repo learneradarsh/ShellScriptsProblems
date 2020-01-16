@@ -12,7 +12,6 @@ computerMoveSign=0
 playerT=0
 computerT=0
 gamestatus=1 #gameon
-drawCounter=0
 fillCounter=0
 
 function assign(){
@@ -74,20 +73,6 @@ function checkmatch(){
   fi
 }
 
-#check draw condition
-function checkDraw(){
-	local i=0
-	local len=${#board[@]}
-	while (( i<len ))
-	do
-		if [ $fillCounter == 8 ] && [ $gamestatus != 0 ]
-		then
-			drawCounter=1
-			break
-		fi
-		(( i++ ))
-	done
-}
 
 #win condition combinations
 function checkgame(){
@@ -120,7 +105,6 @@ function turnH(){
     	fi
   done
   checkgame
-  checkDraw
   if (( $gamestatus != 1 ))
 	then
 	    echo "Gameover"
@@ -133,27 +117,52 @@ function turnH(){
 
 #To find winMove
 function winMove(){
-	#local sym=$3
+	local sym=$3
 	local a=$1
 	local b=$2
 	local counter=0
-	while (( counter < 9 ))
-	do
-		if [[ ${board[$1]} != "." ]] && [[ ${board[$1]} == ${board[$2]} ]] && [[ ${board[$2]} == ${board[$3]} ]]
+		if [[ "${board[8]}" == "." ]] && [[ "${board[0]}" == "${board[4]}" ]] && [[ "${board[0]}" == "$sym" ]]
 		then
-			echo "WIN"
-			winFlag=0
-		fi
-		if [[ $winFlag == 0 ]] && [[ ${board[counter]} == "." ]]
+			a=2
+			b=2
+			echo $a $b $sym
+			return
+		elif [[ "${board[0]}" == "." ]] && [[ "${board[8]}" == "${board[4]}" ]] && [[ "${board[8]}" == "$sym" ]]
 		then
-			echo $a $b
-			break
+			a=0
+			b=0
+			echo $a $b $sym
+			return
+		elif [[ "${board[4]}" == "." ]] && [[ "${board[0]}" == "${board[8]}" ]] && [[ "${board[8]}" == "$sym" ]]
+		then
+			a=1
+			b=1
+			echo $a $b $sym
+			return
 		fi
-		(( counter++ ))
-	done
+		if [[ "${board[2]}" == "${board[4]}" ]] && [[ "${board[6]}" == "." ]] && [[ "${board[6]}" == "$sym" ]]
+		then
+			a=2
+			b=0
+			echo $a $b $sym
+			return
+		elif [[ "${board[6]}" == "${board[2]}" ]] && [[ "${board[4]}" == "." ]] && [[ "${board[6]}" == "$sym" ]]
+		then
+			a=1
+			b=1
+			echo $a $b $sym
+			return
+		elif [[ "${board[6]}" == "${board[4]}" ]] && [[ "${board[.]}" == "$sym" ]] && [[ "${board[6]}" == "$sym" ]]
+		then
+			a=0
+			b=2
+			echo $a $b $sym
+			return
+		fi
+		return 0
 }
 
-#normal move
+#other move
 arrA=(0 0 2 2 1)
 arrB=(0 2 0 2 1)
 
@@ -167,7 +176,7 @@ function turnC(){
 	do
 		printBoard
 		count=0
-		#to find move
+		#winMove $a $b $sym
 		while (( count < 9 ))
 		do
 			a=${arrA[$count]}
@@ -178,11 +187,11 @@ function turnC(){
 			fi
 			(( count++ ))
 		done
+		#echo $(winMove $a $b $sym)
 		set $a $b $sym
 		break
   done
   checkgame
-  checkDraw
   if (( $gamestatus != 1 ))
 	then
 	    echo "Gameover"
@@ -195,6 +204,8 @@ function turnC(){
 printBoard
 assign
 doToss
+
+draw=0
 
 #gameloop
 while (( 1==1 ))
@@ -211,20 +222,22 @@ do
 	if (( playerT == 1 ))
 	then
 		turnH $sym #human move
+		(( draw++ ))
 		computerT=1
 		playerT=0
 	else
 		turnC $sym #computer move
+		(( draw++ ))
 		playerT=1
 		computerT=0
 	fi
 	if (( $gamestatus != 1 ))
 	then
 		break
-	elif (( $drawCounter == 1 ))
+	elif (( $draw == 9 )) && (( $gamestatus == 1 ))
 	then
-		echo "Game Draw"
 		printBoard
+		echo "Game Draw"
 		break
 	fi
 done
