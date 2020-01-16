@@ -1,7 +1,7 @@
 #!/bin/bash
 
 i=0
-rptArray=()
+rptArray=() #Repeated Number Array declaration
 counter=0
 
 function isPalindrome(){
