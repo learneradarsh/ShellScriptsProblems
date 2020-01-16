@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#To find Min Expression
 function findMinExp(){
 
 	if (( $expOne <= $expTwo )) && (( $expOne <= $expThree )) && (( $expOne <= $expFour ))
@@ -15,6 +16,8 @@ function findMinExp(){
 		echo "Min:" $expFour
 	fi
 }
+
+#To find Max Expression
 function findMaxExp(){
 
 	if (( $expOne >= $expTwo )) && (( $expOne >= $expThree )) && (( $expOne >= $expFour ))
