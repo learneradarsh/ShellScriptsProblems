@@ -3,6 +3,7 @@
 #coinflip using random function
 readonly HEADS=1
 readonly TAILS=0
+
 function isHeads(){
 	if (( $randNumber==$HEADS ))
 	then
@@ -11,5 +12,6 @@ function isHeads(){
 		echo "Tails"
 	fi
 }
+
 randNumber=$((RANDOM%2))
 isHeads $randNumber
