@@ -9,10 +9,11 @@ board=(. . . . . . . . .)
 #VARIABLES
 playerMoveSign=0
 computerMoveSign=0
-playerT=0
-computerT=0
+playerT=0 #player turn flag
+computerT=0 #computer turn flag
 gamestatus=1 #gameon
 fillCounter=0
+draw=0 #draw counter
 
 function assign(){
 	local rand=$((RANDOM%2))
@@ -69,7 +70,7 @@ function checkmatch(){
   if [[ "${board[$1]}" != "." ]] && [[ "${board[$1]}" == "${board[$2]}" ]] && [[ "${board[$2]}" == "${board[$3]}" ]]
   then
     gamestatus=0 #gameover
-	 return 0
+	 #return 0
   fi
 }
 
@@ -205,7 +206,6 @@ printBoard
 assign
 doToss
 
-draw=0
 
 #gameloop
 while (( 1==1 ))
@@ -234,7 +234,7 @@ do
 	if (( $gamestatus != 1 ))
 	then
 		break
-	elif (( $draw == 9 )) && (( $gamestatus == 1 ))
+	elif (( $draw == 9 )) && (( $gamestatus == 1 )) #draw condition
 	then
 		printBoard
 		echo "Game Draw"
